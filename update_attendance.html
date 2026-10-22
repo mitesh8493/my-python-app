@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Attendance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background: #f4f7fb;
+        }
+        .card {
+            padding: 20px;
+            border-radius: 10px;
+        }
+        table td, table th {
+            vertical-align: middle !important;
+        }
+    </style>
+</head>
+<body class="p-4">
+
+<div class="container">
+    <h3 class="mb-3">
+        <i class="bi bi-calendar-check-fill text-success"></i>
+        Manage Attendance
+    </h3>
+
+    <div class="card mt-3">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr data-id="{{row[0]}}">
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+
+                        <!-- Date field -->
+                        <td>
+                            <span class="display-date">{{row[2]}}</span>
+                            <input type="date" class="edit-date form-control" value="{{row[2]}}" style="display:none">
+                        </td>
+
+                        <!-- Status field -->
+                        <td>
+                            <span class="display-status">{{row[3]}}</span>
+                            <select class="edit-status form-select" style="display:none">
+                                <option value="Present" {% if row[3]=='Present' %}selected{% endif %}>Present</option>
+                                <option value="Absent" {% if row[3]=='Absent' %}selected{% endif %}>Absent</option>
+                                <option value="Leave" {% if row[3]=='Leave' %}selected{% endif %}>Leave</option>
+                            </select>
+                        </td>
+
+                        <!-- Action buttons -->
+                        <td>
+                            <button class="btn btn-success btn-sm btn-edit">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </button>
+
+                            <button class="btn btn-primary btn-sm btn-save" style="display:none">
+                                <i class="bi bi-check-square"></i> Save
+                            </button>
+
+                            <a href="/delete_attendance/{{row[0]}}" 
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this record?')">
+                               <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- JS Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(document).ready(function(){
+
+    // Click Edit
+    $('.btn-edit').click(function(e){
+        e.preventDefault();
+        var row = $(this).closest('tr');
+
+        // Show editable fields
+        row.find('.display-date, .display-status').hide();
+        row.find('.edit-date, .edit-status').show();
+
+        // Toggle buttons
+        $(this).hide();
+        row.find('.btn-save').show();
+    });
+
+    // Click Save
+    $('.btn-save').click(function(e){
+        e.preventDefault();
+        var row = $(this).closest('tr');
+        var id = row.data('id');
+        var date = row.find('.edit-date').val();
+        var status = row.find('.edit-status').val();
+
+        // AJAX POST to update
+        $.post('/update_attendance_ajax', {id:id, date:date, status:status}, function(res){
+            alert(res.message);
+
+            // Update display
+            row.find('.display-date').text(date).show();
+            row.find('.display-status').text(status).show();
+
+            row.find('.edit-date, .edit-status').hide();
+            row.find('.btn-save').hide();
+            row.find('.btn-edit').show();
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>

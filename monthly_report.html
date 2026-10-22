@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Attendance Report</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Roboto', sans-serif;
+            color: #1e293b;
+        }
+
+        /* Report Paper Style */
+        .report-container {
+            background: white;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            margin-top: 30px;
+            border-top: 5px solid #0d6efd;
+        }
+
+        .report-header {
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Table Design */
+        .table {
+            border-color: #f1f5f9;
+        }
+
+        .table thead th {
+            background-color: #f8fafc;
+            color: #475569;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            border: none;
+            padding: 15px;
+        }
+
+        .table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        /* Percentage calculation bar */
+        .progress {
+            height: 8px;
+            border-radius: 10px;
+            background-color: #f1f5f9;
+        }
+
+        /* Buttons and Utilities */
+        .btn-print {
+            background: #0f172a;
+            color: white;
+            border-radius: 6px;
+            padding: 10px 20px;
+            transition: 0.3s;
+        }
+
+        .btn-print:hover {
+            background: #334155;
+            color: white;
+        }
+
+        /* Printable area logic */
+        @media print {
+            .btn-print, .btn-back { display: none; }
+            body { background: white; }
+            .report-container { box-shadow: none; margin: 0; padding: 20px; border: none; }
+        }
+    </style>
+</head>
+
+<body class="p-4">
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="/admin_analytics" class="btn btn-outline-secondary btn-sm btn-back">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+        <button onclick="window.print()" class="btn btn-print shadow-sm">
+            <i class="bi bi-printer-fill me-2"></i> Print Report
+        </button>
+    </div>
+
+    <div class="report-container">
+        <div class="report-header d-flex justify-content-between align-items-end">
+            <div>
+                <h2 class="fw-bold text-primary mb-1">Monthly Attendance Report</h2>
+                <p class="text-muted mb-0"><i class="bi bi-calendar-event me-2"></i>Report Generated for: <strong>April 2026</strong></p>
+            </div>
+            <div class="text-end">
+                <h5 class="fw-bold mb-0 text-uppercase" style="letter-spacing: 2px;">Confidential</h5>
+                <small class="text-muted">System Generated Logs</small>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Employee Email</th>
+                        <th class="text-center">Present Days</th>
+                        <th class="text-center">Absent Days</th>
+                        <th>Attendance Ratio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if data %}
+                        {% for d in data %}
+                        <tr>
+                            <td class="fw-bold text-dark">
+                                <i class="bi bi-envelope-at me-2 text-muted"></i>{{d[0]}}
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">
+                                    {{d[1]}} Days
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 rounded-pill">
+                                    {{d[2]}} Days
+                                </span>
+                            </td>
+                            <td style="min-width: 200px;">
+                                <div class="d-flex align-items-center">
+                                    <div class="progress w-100 me-2">
+                                        <div class="progress-bar bg-primary" role="progressbar" 
+                                             style="width: 85%;"></div> </div>
+                                    <small class="fw-bold text-muted">Active</small>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5">No data available for this month.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-5 pt-4 border-top">
+            <div class="row">
+                <div class="col-md-6">
+                    <small class="text-muted italic">Note: This is an automated report based on the daily check-in logs.</small>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p class="mb-0 fw-bold">Authorized Signature</p>
+                    <div style="border-bottom: 1px solid #ddd; width: 150px; display: inline-block; margin-top: 20px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

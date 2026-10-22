@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Task</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admindashboard.css') }}">
+</head>
+<body>
+
+<div class="create-task-container">
+    <h1>Create New Task</h1>
+
+    <!-- Form with enctype for file upload -->
+    <form action="/create_task" method="POST" enctype="multipart/form-data">
+
+        <!-- Task Title -->
+        <input type="text" name="title" placeholder="Task Title" required>
+
+        <!-- Description -->
+        <textarea name="description" placeholder="Description"></textarea>
+
+        <!-- Assign to Employee -->
+        <select name="assigned_to" required>
+            <option value="">-- Select Employee --</option>
+            {% for e in employees %}
+                <option value="{{ e[1] }}">{{ e[0] }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Deadline -->
+        <label for="deadline">Deadline</label>
+        <input type="date" name="deadline" id="deadline" required>
+
+        <!-- Document upload -->
+        <label for="document">Attach Document</label>
+        <input type="file" name="document" id="document"><br><br>
+
+        <!-- Submit button -->
+        <button type="submit">Create Task</button>
+
+    </form>
+</div>
+
+</body>
+</html>

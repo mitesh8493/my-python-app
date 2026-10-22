@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project List</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/project.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Project List</h2>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Project Name</th>
+<th>Description</th>
+<th>Status</th>
+</tr>
+
+{% for p in projects %}
+<tr>
+<td>{{p[0]}}</td>
+<td>{{p[1]}}</td>
+<td>{{p[2]}}</td>
+<td>{{p[3]}}</td>
+<td>{{p[4]}}</td>
+<td>{{p[5]}}</td>
+<td>{{p[6]}}</td>
+<td>
+    {% if p[7] %}
+        <a href="{{ url_for('static', filename='uploads/' + p[7]) }}" target="_blank">View</a>
+    {% else %}
+        No document
+    {% endif %}
+</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+<a href="/employee_dashboard" class="btn">Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>

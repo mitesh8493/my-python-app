@@ -1,0 +1,94 @@
+<!-- attendance.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Attendance</title>
+  <link rel="stylesheet" href="static/attendance.css">
+
+    <script>
+        function confirmAttendance() {
+            return confirm("Are you sure you want to mark attendance?");
+        }
+    </script>
+</head>
+<body>
+    <h1>Employee Attendance</h1>
+
+    <form method="POST" action="/mark_attendance">
+
+    <label>Select Employee</label>
+    <select name="employee" class="form-control" required>
+        <option value="">-- Select Employee --</option>
+
+        {% for e in employees %}
+        <option value="{{e[1]}}">
+            {{e[0]}} ({{e[1]}})
+        </option>
+        {% endfor %}
+
+    </select>
+
+    <label>Status</label>
+    <select name="status" class="form-control">
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary mt-2">Mark Attendance</button>
+
+</form>
+    <select name="status" required>
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+        <option value="Leave">Leave</option>
+    </select>
+
+    <!-- ✅ NEW: DATE INPUT -->
+    <input type="date" name="date"  class="form_control">
+
+    <button type="submit">Mark Attendance</button>
+
+</form>
+    
+    <br>
+
+    <h2>Attendance List</h2>
+
+    <table border="1">
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Date</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+{% for a in records %}
+
+<tr>
+<td>{{a[0]}}</td>
+<td>{{a[1]}}</td>
+<td>{{a[2]}}</td>
+<td>{{a[3]}}</td>
+
+<td>
+<form action="/delete_attendance/{{a[0]}}" method="POST">
+<button type="submit">Delete</button>
+</form>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+</table>
+
+    <br>
+    
+    
+    <a href="/manager" class="btn">Back to Dashboard</a>
+    <script src="static/js/attendance.js"></script>
+</body>
+</html>
