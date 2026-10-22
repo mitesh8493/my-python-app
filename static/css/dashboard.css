@@ -1,0 +1,55 @@
+body{
+background:linear-gradient(135deg,#667eea,#764ba2);
+height:100vh;
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+
+/* Beautiful gradient background */
+
+background: linear-gradient(135deg, #667eea, #764ba2);
+
+min-height:100vh;
+}
+
+
+/* Header */
+
+header{
+background:rgba(0,0,0,0.5);
+color:white;
+padding:15px 40px;
+display:flex;
+justify-content:space-between;
+}
+
+/* Container */
+
+.container{
+width:70%;
+margin:80px auto;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.3);
+text-align:center;
+}
+
+/* Footer */
+
+footer{
+position:fixed;
+bottom:0;
+width:100%;
+background:rgba(0,0,0,0.5);
+color:white;
+text-align:center;
+padding:10px;
+}
+
+/* Logout link */
+
+a{
+color:white;
+text-decoration:none;
+}
+

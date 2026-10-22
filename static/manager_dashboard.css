@@ -1,0 +1,103 @@
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(120deg,#67c7c7,#8fa9c7);
+}
+
+header{
+background:#2c3e50;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+.container{
+display:flex;
+}
+
+.sidebar{
+width:220px;
+background:#34495e;
+height:100vh;
+padding-top:20px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+padding:12px;
+text-decoration:none;
+margin:5px;
+}
+
+.sidebar a:hover{
+background:#1abc9c;
+}
+
+.main{
+flex:1;
+padding:20px;
+}
+
+/* cards */
+
+.cards{
+display:flex;
+gap:20px;
+margin-bottom:20px;
+}
+
+.card{
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    text-align:center;
+}
+.card h3{
+margin:0;
+}
+
+.card p{
+font-size:24px;
+font-weight:bold;
+}
+
+/* table */
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+box-shadow:0 5px 10px rgba(0,0,0,0.2);
+}
+
+th{
+background:#2c3e50;
+color:white;
+padding:10px;
+}
+
+td{
+padding:10px;
+text-align:center;
+border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+background:#f2f2f2;
+}
+
+.chart-box {
+    width: 45%;
+    height: 300px;
+    background: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: inline-block;
+}
+
+
+

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f7fb;
+        }
+
+        .container-box {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .table th {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+        }
+
+        .pagination {
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container-box">
+
+    <h2>Users List</h2>
+
+    <!-- 🔍 SEARCH + FILTER -->
+    <form method="GET" class="row g-2 mb-3">
+        <div class="col-md-5">
+            <input type="text" name="search" value="{{search}}" class="form-control" placeholder="Search by name">
+        </div>
+
+        <div class="col-md-4">
+            <select name="role" class="form-select">
+                <option value="">All Roles</option>
+                <option value="admin" {% if role_filter=='admin' %}selected{% endif %}>Admin</option>
+                <option value="manager" {% if role_filter=='manager' %}selected{% endif %}>Manager</option>
+                <option value="employee" {% if role_filter=='employee' %}selected{% endif %}>Employee</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <button class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
+    <!-- 📋 TABLE -->
+    <table class="table table-bordered table-hover text-center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Department</th>
+                <th>Company</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td>{{u['id']}}</td>
+                <td>{{u['username']}}</td>
+                <td>{{u['email']}}</td>
+                <td>{{u['role']}}</td>
+                <td>{{u['department_name']}}</td>
+                <td>{{u['company_name']}}</td>
+                <td>
+                    <a href="/edit_user/{{u['id']}}" class="btn btn-warning btn-sm">Edit</a>
+
+                    <a href="/delete_user/{{u['id']}}" 
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Delete user?')">
+                       Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- 🔄 PAGINATION -->
+    <nav>
+        <ul class="pagination">
+
+            {% if page > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="/users?page={{page-1}}&search={{search}}&role={{role_filter}}">
+                    Prev
+                </a>
+            </li>
+            {% endif %}
+
+            <li class="page-item active">
+                <span class="page-link">{{page}}</span>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" href="/users?page={{page+1}}&search={{search}}&role={{role_filter}}">
+                    Next
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
+    <!-- ➕ ADD USER -->
+    <div class="text-center mt-3">
+        <a href="/add_user" class="btn btn-success">+ Add User</a>
+    </div>
+
+</div>
+
+</body>
+</html>

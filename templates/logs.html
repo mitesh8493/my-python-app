@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Logs | Admin Panel</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .log-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            overflow: hidden; /* For border radius */
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .log-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 30px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .log-header h2 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .log-header i {
+            font-size: 1.8rem;
+            opacity: 0.8;
+        }
+
+        .table-responsive {
+            padding: 20px;
+        }
+
+        .table {
+            margin-bottom: 0;
+            vertical-align: middle;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            padding: 15px;
+        }
+
+        .table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: #fdfdfd;
+            transform: scale(1.002);
+            box-shadow: inset 4px 0 0 #2a5298;
+        }
+
+        .table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #f2f2f2;
+            font-size: 0.95rem;
+        }
+
+        .user-badge {
+            background: #eef2ff;
+            color: #4e73df;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .action-text {
+            color: #555;
+            font-weight: 400;
+        }
+
+        .time-text {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .time-text i {
+            margin-right: 5px;
+            color: #ccc;
+        }
+
+        .empty-state {
+            padding: 50px;
+            text-align: center;
+            color: #adb5bd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="log-container">
+    <div class="log-header">
+        <div>
+            <h2><i class="fa-solid fa-list-check me-2"></i> Activity Logs</h2>
+            <p class="mb-0 mt-1 opacity-75 small">System ki saari activities yahan monitor karein</p>
+        </div>
+        <button class="btn btn-sm btn-outline-light" onclick="window.location.reload()">
+            <i class="fa-solid fa-rotate"></i> Refresh
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><i class="fa-solid fa-user-circle me-2"></i> User</th>
+                    <th><i class="fa-solid fa-bolt me-2"></i> Action performed</th>
+                    <th><i class="fa-solid fa-clock me-2"></i> Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if logs %}
+                    {% for l in logs %}
+                    <tr>
+                        <td>
+                            <span class="user-badge">{{l[1]}}</span>
+                        </td>
+                        <td>
+                            <span class="action-text">{{l[2]}}</span>
+                        </td>
+                        <td>
+                            <span class="time-text">
+                                <i class="fa-regular fa-calendar-alt"></i> {{l[3]}}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="empty-state">
+                            <i class="fa-solid fa-inbox d-block mb-3" style="font-size: 3rem;"></i>
+                            Abhi tak koi logs nahi hain.
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="/dashboard" class="text-muted text-decoration-none small">
+        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+</body>
+</html>

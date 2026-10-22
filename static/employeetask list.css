@@ -1,0 +1,65 @@
+/* Container */
+.employee-task-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Heading */
+.employee-task-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Table */
+.employee-task-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.employee-task-table th, .employee-task-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.employee-task-table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.employee-task-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.employee-task-table tr:hover {
+    background-color: #e0f2f1;
+    transition: 0.3s;
+}
+
+/* Back Button */
+.back-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-btn:hover {
+    background-color: #45a049;
+}
